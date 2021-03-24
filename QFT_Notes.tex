@@ -5,44 +5,51 @@
 \usepackage{amsmath} % align environment
 % \usepackage{amsfonts}
 \usepackage{amssymb}
-% \usepackage{bbm}
+% \usepackage{bm}
 % \usepackage{tikz}
 % \usetikzlibrary{intersections}
 % \usepackage{subcaption}
 % \usepackage{mathrsfs}
 \usepackage{braket}
+\usepackage{graphicx}
+% \graphicspath{ {./QFT2021/} }
 
 \input{QFT_Notation}
+
 
 \begin{document}
 
 \title{QFT Notes}
 \author{Kevin Roebuck}
+\date{Spring 2021}
 \maketitle
 
 %
 
-\section{Class 1 - 3/19}
+\section{Preface}
+The information here is largely taken from Dr. Paul Anderson's lectures and Dr. Eric Carlson's contributions to said lectures as well as his quantum mechanics textbook.
+
+\section{Class 1: March 19, 2021}
 \subsection{Notation and general setup}
-We'll work with a neutral scalar field, $\ScalarField$, that is self-interacting. On top of this, we will stay in flat space and use the signature $\FlatMetric_{\mu\nu} = diag(-1, 1, 1, 1)$. Generic coordinates will be denoted by $x$ such that $x^\mu = (t, x, y, z)$ for $\mu = 0, 1, 2, 3$. The distinction between the generic coordinate $x$ and $x^1 = x$ will generally be reliant on the context of the situation at hand. Regarding units, $c=1$ will always be the case, while $\hbar=1$ will only be the case most of the time.
+We'll work with a neutral scalar field, $\ScalarField$, that is self-interacting. On top of this, we will stay in flat space and use the metric signature $(-,+,+,+)$. Generic coordinates will be denoted by $x$ such that $x^\mu = (t, x, y, z)$ for $\mu = 0, 1, 2, 3$. The distinction between the generic coordinate $x$ and $x^1 = x$ will generally be reliant on the context of the situation at hand. Regarding units, $c=1$ will always be the case, while $\hbar=1$ will only be the case most of the time.
 
 The action is given by
 \begin{align}
-\Action = \int d^4 x \left[\frac{1}{2}\FlatMetric^{\alpha\beta}(\DD{\alpha}\ScalarField)(\DD{\beta}\ScalarField) + \frac{1}{2}m^2\ScalarField^2 + V(\ScalarField)\right].
+\Action = \int d^4 x \LagrangianDensity = \int d^4 x \left[\frac{1}{2}\FlatMetric^{\alpha\beta}(\DD{\alpha}\ScalarField)(\DD{\beta}\ScalarField) + \frac{1}{2}m^2\ScalarField^2 + V(\ScalarField)\right],
 \end{align}
-Typically, the potential will look like
+where $\FlatMetric_{\alpha\beta} = diag(-1, 1, 1, 1)$ is the flat space Minkowski metric. Typically, the potential is a polynomial in $\ScalarField$. For example, a type of self-ineraction in a scalar field is a quartic interaction
 \begin{align}
-V(\ScalarField) = \frac{\lambda}{4}\ScalarField^4.
+V(\ScalarField) = \frac{\lambda}{4!}\ScalarField^4,
 \end{align}
-When using the variational principle, we will assume that
+where $\lambda$ is a coupling constant. When using the variational principle, we will assume that
 \begin{align}
 \frac{\delta\ScalarField(x)}{\delta\ScalarField(x')} = \delta(x-x') = \delta(t-t')\delta(\vec{x}-\vec{x}').
 \end{align}
-If we set the variation of the action with respect to our scalar field equal to zero, we get a wave equation
+The corresponding Euler-Lagrange equation of motion is a wave equation
 \begin{align}
 \frac{\delta\Action}{\delta\ScalarField} = 0 \qquad\rightarrow\qquad \Dal\ScalarField - m^2\ScalarField - V'(\ScalarField) = 0,
 \end{align}
-where $\Dal \equiv \DD{t}^2 + \nabla^2$.
+where $\Dal \equiv \DD{t}^2 + \nabla^2$ is the d'Alembertian operator. The nonlinearity of this equation of motion implies self-interaction.
 
 \subsection{Vacuum persistence amplitude}
 In QFT, we will be looking at the vacuum persistence amplitude
@@ -57,9 +64,94 @@ Heuristically, this means that we should take all possible real functions, $\Sca
 \begin{align}
 \Action[\ScalarField] = \sum_i\sum_j \left[
 \frac{1}{2}\left(\frac{\ScalarField_{i,j} - \ScalarField_{i-1,j}}{\Delta t}\right)^2
-- \frac{1}{2}\left(\frac{\ScalarField_{i,j} - \ScalarField_{i,j-1})}{\Delta x}\right)^2
-+ m^2\ScalarField^2_{i,j} + V(\ScalarField_{i,j})\right]\Delta x \Delta t
+- \frac{1}{2}\left(\frac{\ScalarField_{i,j} - \ScalarField_{i,j-1}}{\Delta x}\right)^2
++ m^2\ScalarField^2_{i,j} + V(\ScalarField_{i,j})\right]\Delta x \Delta t.
+\end{align}
+With this in mind, the vacuum persistence amplitude takes the form
+\begin{align}
+\braket{0_{-}|0_{+}} = \int_{-\infty}^\infty \prod_k \prod_l d\ScalarField(t_k,x_l)e^{i\Action/\hbar}.
+\end{align}
+Usually there will be some constants in the integrand as well, called the ``measure.'' The measure will act as a way of normalizing the integral. In the discrete case, this can be worked out (not too hard?), but to get to the continuous case, we need to take the limit as $\Delta \rightarrow 0$. The exponential oscillates all over the place as we vary $\ScalarField$. In the limit that $\hbar\rightarrow 0$, the oscillations will average out to zero, except where the action is minimized with respect to small changes in $\ScalarField$, i.e. the classical limit.
+
+\subsection{Time evolution operator and propagator}
+If we know that quantum state at $t_0$, then the time evolution operator $\TimeEvol(t, t_0)$ gives us the state vector at a later time $t$ according to
+\begin{align}
+\ket{\Psi(t)} = \TimeEvol(t,t_0)\ket{\Psi(t_0)}.
+\end{align}
+The time evolution operator's properties include
+\begin{align}
+\TimeEvol(t_0,t_0) &= 1, \\
+\TimeEvol^\dagger(t,t_0)\TimeEvol(t,t_0) &= 1, \\
+\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0) &= \TimeEvol(t_2,t_0).
+\end{align}
+If the Hamiltonian is constant, then
+\begin{align}
+\TimeEvol(t,t_0) = e^{-i\Hamiltonian(t-t_0)/\hbar}.
+\end{align}
+Now consider a similar situation in which we have a single spinless particle so that $\ket{\vec{r}}$ forms a basis for the state space. If we know the wave function at $(\vec{r}_0,t_0)$, then the wave function at $(\vec{r},t)$ is given by
+\begin{align}
+\Psi(\vec{r},t) = \braket{\vec{r}|\Psi(t)} = \braket{\vec{r}|\TimeEvol(t,t_0)|\Psi(t_0)} &= \int d^3\vec{r}_0\braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}\braket{\vec{r}_0|\Psi(t_0)} \\
+&= \int d^3\vec{r}_0\Prop(\vec{r},t;\vec{r}_0,t_0)\braket{\vec{r}_0|\Psi(t_0)},
+\end{align}
+where the propagator (also called the kernel) is defined as
+\begin{align}
+\Prop(\vec{r},t;\vec{r}_0,t_0) \equiv \braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}.
 \end{align}
 
+For a free particle in one dimension, $V(t,x)=0$, the eigenstates and eigenvalues are
+\begin{align}
+\phi_k(x) &= \frac{1}{\sqrt{2\pi}}e^{ikx}, \\
+E_k &= \frac{\hbar^2 k^2}{2m},
+\end{align}
+respectively. The propagator is then
+\begin{align}
+\Prop(x,t;x_0,t_0) &= \int \frac{dk}{2\pi}e^{ikx}e^{i\hbar k^2(t-t_0)/(2m)}e^{-ikx_0} \\
+&= \frac{1}{2\pi}\int dk \, exp\left[k(ix-ix_0) - i\hbar k^2(t-t_0)/(2m)\right] \\
+&= \frac{1}{2\pi}\sqrt{\frac{\pi}{i\hbar(t-t_0)/(2m)}}exp\left[\frac{i^2(x-x_0)^2}{4 i\hbar(t-t_0)/(2m)}\right] \\
+&= \sqrt{\frac{m}{2\pi i\hbar(t-t_0)}}exp\left[\frac{im(x-x_0)^2}{2\hbar(t-t_0)}\right],
+\end{align}
+wherein the integral was calculated using
+\begin{align}
+\int_{-\infty}^\infty e^{-Ax^2-Bx}dx = \sqrt{\pi/A}e^{B^2/(4A)}.
+\end{align}
+
+\subsection{Feynman path integral formalism}
+It is hard to find $\Prop$ for large time differences, but easy for small differences. We can build up large ones out of many small ones. Consider the Hamiltonian in 1D,
+\begin{align}
+\Hamiltonian = \frac{P^2}{2m} + V(x,t).
+\end{align}
+We wish to solve
+\begin{align}
+i\hbar\Prop(x,t;x_0,t_0) = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}\Prop(x,t;x_0,t_0) + V(x,t)\Prop(x,t;x_0,t_0).
+\end{align}
+For short enough times, we expect $V$ to change relatively little and $\Prop$ to be non-zero only near $x=x_0$, so let us estimate $V(x,t)=V(x_0,t_0)$. We'll skip the calculation here, but it can be shown (see page 178 of Dr. Carlson's book) that
+\begin{align}
+\Prop(x_1,t_1;x_0,t_0) = \sqrt{\frac{m}{2\pi i\hbar\Delta t}}exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0)\right]\right\}.
+\end{align}
+Recall that the time evolution operator possesses the property
+\begin{align}
+\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0) = \TimeEvol(t_2,t_0).
+\end{align}
+Then,
+\begin{align}
+\Prop(x_2,t_2;x_0,t_0) &= \braket{x_2|\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0)|x_0} \\
+&= \int d x_1 \braket{x_2|\TimeEvol(t_2,t_1)|x_1}\braket{x_1|\TimeEvol(t_1,t_0)|x_0} \\
+&= \int d x_1 \Prop(x_2,t_2;x_1,t_1)\Prop(x_1,t_1;x_0,t_0) \\
+&= \frac{m}{2\pi i\hbar\Delta t}\int d x_1 exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0) + \frac{m}{2}\left(\frac{x_2 - x_1}{\Delta t}\right)^2 - V(x_1,t_1)\right]\right\}.
+\end{align}
+If we iterate $N$ times, to get it at time $t_N = t_0 + N\Delta t$, we get
+\begin{align}
+\Prop(x_N,t_N;x_0,t_0) = \left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1 exp\left\{\frac{i\Delta t}{\hbar}\sum_{i=0}^{N-1}\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
+\end{align}
+In the limit that $\Delta t \rightarrow 0$, we are considering all possible functions $x_i(t)$ that start at $x_0$ and end at $x_N$, as shown in Fig.~\ref{fig:PropagatorPaths}.
+\begin{figure}
+\includegraphics{PathIntegral.png}
+\centering
+\caption{To find the propagator from $x_0$
+to $x_N$, divide the time interval into many
+small steps, and consider all possible
+positions at each intermediate step.}
+\label{fig:PropagatorPaths}
+\end{figure}
 
 \end{document}
