@@ -90,7 +90,7 @@ If the Hamiltonian is constant, then
 \end{align}
 Now consider a similar situation in which we have a single spinless particle so that $\ket{\vec{r}}$ forms a basis for the state space. If we know the wave function at $(\vec{r}_0,t_0)$, then the wave function at $(\vec{r},t)$ is given by
 \begin{align}
-\Psi(\vec{r},t) = \braket{\vec{r}|\Psi(t)} = \braket{\vec{r}|\TimeEvol(t,t_0)|\Psi(t_0)} &= \int d^3\vec{r}_0\braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}\braket{\vec{r}_0|\Psi(t_0)} \\
+\Psi(\vec{r},t) = \braket{\vec{r}|\Psi(t)} = \braket{\vec{r}|\TimeEvol(t,t_0)|\Psi(t_0)} &= \int d^3\vec{r}_0\braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}\braket{\vec{r}_0|\Psi(t_0)} \nonumber\\
 &= \int d^3\vec{r}_0\Prop(\vec{r},t;\vec{r}_0,t_0)\braket{\vec{r}_0|\Psi(t_0)},
 \end{align}
 where the propagator (also called the kernel) is defined as
@@ -105,9 +105,9 @@ E_k &= \frac{\hbar^2 k^2}{2m},
 \end{align}
 respectively. The propagator is then
 \begin{align}
-\Prop(x,t;x_0,t_0) &= \int \frac{dk}{2\pi}e^{ikx}e^{i\hbar k^2(t-t_0)/(2m)}e^{-ikx_0} \\
-&= \frac{1}{2\pi}\int dk \, exp\left[k(ix-ix_0) - i\hbar k^2(t-t_0)/(2m)\right] \\
-&= \frac{1}{2\pi}\sqrt{\frac{\pi}{i\hbar(t-t_0)/(2m)}}exp\left[\frac{i^2(x-x_0)^2}{4 i\hbar(t-t_0)/(2m)}\right] \\
+\Prop(x,t;x_0,t_0) &= \int \frac{dk}{2\pi}e^{ikx}e^{i\hbar k^2(t-t_0)/(2m)}e^{-ikx_0} \nonumber\\
+&= \frac{1}{2\pi}\int dk \, exp\left[k(ix-ix_0) - i\hbar k^2(t-t_0)/(2m)\right] \nonumber\\
+&= \frac{1}{2\pi}\sqrt{\frac{\pi}{i\hbar(t-t_0)/(2m)}}exp\left[\frac{i^2(x-x_0)^2}{4 i\hbar(t-t_0)/(2m)}\right] \nonumber\\
 &= \sqrt{\frac{m}{2\pi i\hbar(t-t_0)}}exp\left[\frac{im(x-x_0)^2}{2\hbar(t-t_0)}\right],
 \end{align}
 wherein the integral was calculated using
@@ -134,24 +134,62 @@ Recall that the time evolution operator possesses the property
 \end{align}
 Then,
 \begin{align}
-\Prop(x_2,t_2;x_0,t_0) &= \braket{x_2|\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0)|x_0} \\
-&= \int d x_1 \braket{x_2|\TimeEvol(t_2,t_1)|x_1}\braket{x_1|\TimeEvol(t_1,t_0)|x_0} \\
-&= \int d x_1 \Prop(x_2,t_2;x_1,t_1)\Prop(x_1,t_1;x_0,t_0) \\
+\Prop(x_2,t_2;x_0,t_0) &= \braket{x_2|\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0)|x_0} \nonumber\\
+&= \int d x_1 \braket{x_2|\TimeEvol(t_2,t_1)|x_1}\braket{x_1|\TimeEvol(t_1,t_0)|x_0} \nonumber\\
+&= \int d x_1 \Prop(x_2,t_2;x_1,t_1)\Prop(x_1,t_1;x_0,t_0) \nonumber\\
 &= \frac{m}{2\pi i\hbar\Delta t}\int d x_1 exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0) + \frac{m}{2}\left(\frac{x_2 - x_1}{\Delta t}\right)^2 - V(x_1,t_1)\right]\right\}.
 \end{align}
 If we iterate $N$ times, to get it at time $t_N = t_0 + N\Delta t$, we get
 \begin{align}
-\Prop(x_N,t_N;x_0,t_0) = \left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1 exp\left\{\frac{i\Delta t}{\hbar}\sum_{i=0}^{N-1}\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
+\Prop(x_N,t_N;x_0,t_0) = \left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1 exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
 \end{align}
-In the limit that $\Delta t \rightarrow 0$, we are considering all possible functions $x_i(t)$ that start at $x_0$ and end at $x_N$, as shown in Fig.~\ref{fig:PropagatorPaths}.
+In the limit that $\Delta t \rightarrow 0$, we are considering all possible functions $x_i(t)$ that start at $x_0$ and end at $x_N$, an example of which is shown in Fig.~\ref{fig:PropagatorPaths}.
 \begin{figure}
 \includegraphics{PathIntegral.png}
 \centering
-\caption{To find the propagator from $x_0$
-to $x_N$, divide the time interval into many
-small steps, and consider all possible
-positions at each intermediate step.}
+\caption{To find the propagator from $x_0$ to $x_N$, divide the time interval into many small steps, and consider all possible positions at each intermediate step.}
 \label{fig:PropagatorPaths}
 \end{figure}
+Let us now define the ``functional integral,''
+\begin{align}
+\int_{x_0(t_0)}^{x_N(t_N)}D[x(t)] \equiv \lim_{N\rightarrow\infty}\left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1,
+\end{align}
+so that the propagator can be written as
+\begin{align}
+\Prop(x_N,t_N;x_0,t_0) = \int_{x_0(t_0)}^{x_N(t_N)}D[x(t)] exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
+\end{align}
+In the limit that $\Delta t \rightarrow 0$, we see that the term in round parentheses is a derivative and that the inner sum is essentially an integral. With this in mind, and changing notation from $(x_N, t_N; x_0, t_0)\rightarrow(x_F, t_F; x_I, t_I)$, the propagator takes the form
+\begin{align}
+\Prop(x_F, t_F; x_I, t_I) &= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\left[\frac{1}{2}m\dot{x}^2 - V(x,t)\right]\right\} \nonumber\\
+&= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\LagrangianDensity(\dot{x},x,t)\right\} \nonumber\\
+&= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}. \label{eqn:Propagator}
+\end{align}
+From this, we may rewrite one of the postulates of quantum mechanics:
 
+\bigbreak
+\begin{minipage}{0.35\textwidth}
+\textbf{When you do not perform a measurement, the state vector evolves according to}: \\
+\begin{align*}
+i\hbar\frac{d}{dt}\ket{\Psi(t)} = \Hamiltonian(t)\ket{\Psi(t)},
+\end{align*}
+\textbf{where $\Hamiltonian$ is an observable.} \\
+\end{minipage}
+\begin{minipage}{0.12\textwidth}
+$\quad\quad\rightarrow$
+\end{minipage}
+\begin{minipage}{0.35\textwidth}
+\textbf{When you do not perform a measurement, the state vector evolves according to}: \\
+\begin{align*}
+\ket{\Psi(t)} = \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}\ket{\Psi(t_0)},
+\end{align*}
+\textbf{where $\Action[x(t)]$ is the classical action associated with the path $x(t)$.} \\
+\end{minipage}
+
+This is all well and good, but why do all this? The Hamiltonian approach seems to work just fine and this form is really quite a handful to define, right? For one, the Lagrangian and action are considered more fundamental than the Hamiltonian, since the Hamiltonian is usually derived from the Lagrangian. Furthermore, the action is relativistically invariant, unlike the Hamiltonian. In QFT, it is far easier to work with the Lagrangian.
+
+According to this new version of the postulate, to go from $x_I$ to $x_F$, the particle take all possible paths. In terms of any ordinary dimensions, $\hbar$ is very small, and hence the argument of the exponential will be a large imaginary number. If you change the path $x(t)$ even a tiny bit, the action will generally change and therefore the exponential will suddenly change its phase. As a result, integration over all paths results in lots of cancellations, except paths such that tiny changes produce no change in the action, that is
+\begin{align}
+\frac{\delta\Action[x(t)]}{\delta x(t)} = 0.
+\end{align}
+This leading order approximation of small $\hbar$, called the ``stationary phase approximation,'' is none other than the classical path.
 \end{document}
