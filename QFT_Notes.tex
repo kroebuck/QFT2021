@@ -56,7 +56,7 @@ In QFT, we will be looking at the vacuum persistence amplitude
 \begin{align}
 \braket{0_{-}|0_{+}},
 \end{align}
-which is related to the probability that the vacuum stays a vacuum. Here, $0_{-}$ ($0_{+}$) is the in (out) vacuum state. The amplitude is given by
+which is related to the probability that the vacuum stays a vacuum. Here, $0_{+}$ ($0_{-}$) is the in (out) vacuum state. The amplitude is given by
 \begin{align}
 \braket{0_{-}|0_{+}} = \int [d\ScalarField] e^{i\Action[\ScalarField]/\hbar}.
 \end{align}
@@ -91,11 +91,11 @@ If the Hamiltonian is constant, then
 Now consider a similar situation in which we have a single spinless particle so that $\ket{\vec{r}}$ forms a basis for the state space. If we know the wave function at $(\vec{r}_0,t_0)$, then the wave function at $(\vec{r},t)$ is given by
 \begin{align}
 \Psi(\vec{r},t) = \braket{\vec{r}|\Psi(t)} = \braket{\vec{r}|\TimeEvol(t,t_0)|\Psi(t_0)} &= \int d^3\vec{r}_0\braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}\braket{\vec{r}_0|\Psi(t_0)} \nonumber\\
-&= \int d^3\vec{r}_0\Prop(\vec{r},t;\vec{r}_0,t_0)\braket{\vec{r}_0|\Psi(t_0)},
+&= \int d^3\vec{r}_0\PropK(\vec{r},t;\vec{r}_0,t_0)\braket{\vec{r}_0|\Psi(t_0)},
 \end{align}
 where the propagator (also called the kernel) is defined as
 \begin{align}
-\Prop(\vec{r},t;\vec{r}_0,t_0) \equiv \braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}.
+\PropK(\vec{r},t;\vec{r}_0,t_0) \equiv \braket{\vec{r}|\TimeEvol(t,t_0)|\vec{r}_0}.
 \end{align}
 
 For a free particle in one dimension, $V(t,x)=0$, the eigenstates and eigenvalues are
@@ -105,10 +105,10 @@ E_k &= \frac{\hbar^2 k^2}{2m},
 \end{align}
 respectively. The propagator is then
 \begin{align}
-\Prop(x,t;x_0,t_0) &= \int \frac{dk}{2\pi}e^{ikx}e^{i\hbar k^2(t-t_0)/(2m)}e^{-ikx_0} \nonumber\\
-&= \frac{1}{2\pi}\int dk \, exp\left[k(ix-ix_0) - i\hbar k^2(t-t_0)/(2m)\right] \nonumber\\
-&= \frac{1}{2\pi}\sqrt{\frac{\pi}{i\hbar(t-t_0)/(2m)}}exp\left[\frac{i^2(x-x_0)^2}{4 i\hbar(t-t_0)/(2m)}\right] \nonumber\\
-&= \sqrt{\frac{m}{2\pi i\hbar(t-t_0)}}exp\left[\frac{im(x-x_0)^2}{2\hbar(t-t_0)}\right],
+\PropK(x,t;x_0,t_0) &= \int \frac{dk}{2\pi}e^{ikx}e^{i\hbar k^2(t-t_0)/(2m)}e^{-ikx_0} \nonumber\\
+&= \frac{1}{2\pi}\int dk \, \exp\left[k(ix-ix_0) - i\hbar k^2(t-t_0)/(2m)\right] \nonumber\\
+&= \frac{1}{2\pi}\sqrt{\frac{\pi}{i\hbar(t-t_0)/(2m)}}\exp\left[\frac{i^2(x-x_0)^2}{4 i\hbar(t-t_0)/(2m)}\right] \nonumber\\
+&= \sqrt{\frac{m}{2\pi i\hbar(t-t_0)}}\exp\left[\frac{im(x-x_0)^2}{2\hbar(t-t_0)}\right],
 \end{align}
 wherein the integral was calculated using
 \begin{align}
@@ -116,17 +116,17 @@ wherein the integral was calculated using
 \end{align}
 
 \subsection{Feynman path integral formalism}
-It is hard to find $\Prop$ for large time differences, but easy for small differences. We can build up large ones out of many small ones. Consider the Hamiltonian in 1D,
+It is hard to find $\PropK$ for large time differences, but easy for small differences. We can build up large ones out of many small ones. Consider the Hamiltonian in 1D,
 \begin{align}
 \Hamiltonian = \frac{P^2}{2m} + V(x,t).
 \end{align}
 We wish to solve
 \begin{align}
-i\hbar\Prop(x,t;x_0,t_0) = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}\Prop(x,t;x_0,t_0) + V(x,t)\Prop(x,t;x_0,t_0).
+i\hbar\PropK(x,t;x_0,t_0) = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}\PropK(x,t;x_0,t_0) + V(x,t)\PropK(x,t;x_0,t_0).
 \end{align}
-For short enough times, we expect $V$ to change relatively little and $\Prop$ to be non-zero only near $x=x_0$, so let us estimate $V(x,t)=V(x_0,t_0)$. We'll skip the calculation here, but it can be shown (see page 178 of Dr. Carlson's book) that
+For short enough times, we expect $V$ to change relatively little and $\PropK$ to be non-zero only near $x=x_0$, so let us estimate $V(x,t)=V(x_0,t_0)$. We'll skip the calculation here, but it can be shown (see page 178 of Dr. Carlson's book) that
 \begin{align}
-\Prop(x_1,t_1;x_0,t_0) = \sqrt{\frac{m}{2\pi i\hbar\Delta t}}exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0)\right]\right\}.
+\PropK(x_1,t_1;x_0,t_0) = \sqrt{\frac{m}{2\pi i\hbar\Delta t}}\exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0)\right]\right\}.
 \end{align}
 Recall that the time evolution operator possesses the property
 \begin{align}
@@ -134,14 +134,14 @@ Recall that the time evolution operator possesses the property
 \end{align}
 Then,
 \begin{align}
-\Prop(x_2,t_2;x_0,t_0) &= \braket{x_2|\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0)|x_0} \nonumber\\
+\PropK(x_2,t_2;x_0,t_0) &= \braket{x_2|\TimeEvol(t_2,t_1)\TimeEvol(t_1,t_0)|x_0} \nonumber\\
 &= \int d x_1 \braket{x_2|\TimeEvol(t_2,t_1)|x_1}\braket{x_1|\TimeEvol(t_1,t_0)|x_0} \nonumber\\
-&= \int d x_1 \Prop(x_2,t_2;x_1,t_1)\Prop(x_1,t_1;x_0,t_0) \nonumber\\
-&= \frac{m}{2\pi i\hbar\Delta t}\int d x_1 exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0) + \frac{m}{2}\left(\frac{x_2 - x_1}{\Delta t}\right)^2 - V(x_1,t_1)\right]\right\}.
+&= \int d x_1 \PropK(x_2,t_2;x_1,t_1)\PropK(x_1,t_1;x_0,t_0) \nonumber\\
+&= \frac{m}{2\pi i\hbar\Delta t}\int d x_1 \exp\left\{\frac{i\Delta t}{\hbar}\left[\frac{m}{2}\left(\frac{x_1 - x_0}{\Delta t}\right)^2 - V(x_0,t_0) + \frac{m}{2}\left(\frac{x_2 - x_1}{\Delta t}\right)^2 - V(x_1,t_1)\right]\right\}.
 \end{align}
 If we iterate $N$ times, to get it at time $t_N = t_0 + N\Delta t$, we get
 \begin{align}
-\Prop(x_N,t_N;x_0,t_0) = \left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1 exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
+\PropK(x_N,t_N;x_0,t_0) = \left(\frac{m}{2\pi i\hbar\Delta t}\right)^{N/2}\int d x_{N-1} ... \int d x_1 \exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
 \end{align}
 In the limit that $\Delta t \rightarrow 0$, we are considering all possible functions $x_i(t)$ that start at $x_0$ and end at $x_N$, an example of which is shown in Fig.~\ref{fig:PropagatorPaths}.
 \begin{figure}
@@ -156,13 +156,13 @@ Let us now define the ``functional integral,''
 \end{align}
 so that the propagator can be written as
 \begin{align}
-\Prop(x_N,t_N;x_0,t_0) = \int_{x_0(t_0)}^{x_N(t_N)}D[x(t)] exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
+\PropK(x_N,t_N;x_0,t_0) = \int_{x_0(t_0)}^{x_N(t_N)}D[x(t)] \exp\left\{\frac{i}{\hbar}\sum_{i=0}^{N-1}\Delta t\left[\frac{m}{2}\left(\frac{x_{i+1} - x_i}{\Delta t}\right)^2 - V(x_i,t_i)\right]\right\}.
 \end{align}
 In the limit that $\Delta t \rightarrow 0$, we see that the term in round parentheses is a derivative and that the inner sum is essentially an integral. With this in mind, and changing notation from $(x_N, t_N; x_0, t_0)\rightarrow(x_F, t_F; x_I, t_I)$, the propagator takes the form
 \begin{align}
-\Prop(x_F, t_F; x_I, t_I) &= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\left[\frac{1}{2}m\dot{x}^2 - V(x,t)\right]\right\} \nonumber\\
-&= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\LagrangianDensity(\dot{x},x,t)\right\} \nonumber\\
-&= \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}. \label{eqn:Propagator}
+\PropK(x_F, t_F; x_I, t_I) &= \int_{x_I}^{x_F}D[x(t)] \exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\left[\frac{1}{2}m\dot{x}^2 - V(x,t)\right]\right\} \nonumber\\
+&= \int_{x_I}^{x_F}D[x(t)] \exp\left\{\frac{i}{\hbar}\int_{t_I}^{t_F}dt\LagrangianDensity(\dot{x},x,t)\right\} \nonumber\\
+&= \int_{x_I}^{x_F}D[x(t)] \exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}. \label{eqn:Propagator}
 \end{align}
 From this, we may rewrite one of the postulates of quantum mechanics:
 
@@ -180,16 +180,126 @@ $\quad\quad\rightarrow$
 \begin{minipage}{0.35\textwidth}
 \textbf{When you do not perform a measurement, the state vector evolves according to}: \\
 \begin{align*}
-\ket{\Psi(t)} = \int_{x_I}^{x_F}D[x(t)] exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}\ket{\Psi(t_0)},
+\ket{\Psi(t)} = \int_{x_I}^{x_F}D[x(t)] \exp\left\{\frac{i}{\hbar}\Action[x(t)]\right\}\ket{\Psi(t_0)},
 \end{align*}
 \textbf{where $\Action[x(t)]$ is the classical action associated with the path $x(t)$.} \\
 \end{minipage}
 
 This is all well and good, but why do all this? The Hamiltonian approach seems to work just fine and this form is really quite a handful to define, right? For one, the Lagrangian and action are considered more fundamental than the Hamiltonian, since the Hamiltonian is usually derived from the Lagrangian. Furthermore, the action is relativistically invariant, unlike the Hamiltonian. In QFT, it is far easier to work with the Lagrangian.
 
-According to this new version of the postulate, to go from $x_I$ to $x_F$, the particle take all possible paths. In terms of any ordinary dimensions, $\hbar$ is very small, and hence the argument of the exponential will be a large imaginary number. If you change the path $x(t)$ even a tiny bit, the action will generally change and therefore the exponential will suddenly change its phase. As a result, integration over all paths results in lots of cancellations, except paths such that tiny changes produce no change in the action, that is
+According to this new version of the postulate, to go from $x_I$ to $x_F$, the particle takes all possible paths. In terms of any ordinary dimensions, $\hbar$ is very small, and hence the argument of the exponential will be a large imaginary number. If you change the path $x(t)$ even a tiny bit, the action will generally change and therefore the exponential will suddenly change its phase. As a result, integration over all paths results in lots of cancellations, except paths such that tiny changes produce no change in the action, that is
 \begin{align}
 \frac{\delta\Action[x(t)]}{\delta x(t)} = 0.
 \end{align}
 This leading order approximation of small $\hbar$, called the ``stationary phase approximation,'' is none other than the classical path.
+
+\section{Class 2: March 26, 2021}
+Let us first set $\hbar=1$ and denote by $q$ a generalized coordinate. Furthermore, assume the Hamiltonian is time-independent, $\Hamiltonian\neq\Hamiltonian(t)$, so that the time evolution operator is
+\begin{align}
+\TimeEvol(t,t_0) = e^{-i\Hamiltonian(t-t_0)}.
+\end{align}
+Let $Q_S$ be the time-independent position operator in the Schr\"odinger representation that corresponds to the observable $q$. Let $q$ be the orthonormal eigenvalues of $Q_s$:
+\begin{align}
+Q_s\ket{q} &= q\ket{q}, \\
+\braket{q'|q} &= \delta(q-q').
+\end{align}
+We will work in the Heisenburg representation in which the state vector is defined as
+\begin{align}
+\ket{q,t} \equiv e^{i\Hamiltonian t} \ket{q},
+\end{align}
+which describes a state which at time $t$ is an eigenstate of the coordinate $Q_\Hamiltonian$ with eigenvalue $q$:
+\begin{align}
+Q_\Hamiltonian (t) = e^{i\Hamiltonian t} Q_s e^{-i\Hamiltonian t}.
+\end{align}
+Then,
+\begin{align}
+Q_\Hamiltonian (t) \ket{q,t} &= e^{i\Hamiltonian t} Q_s e^{-i\Hamiltonian t} e^{i\Hamiltonian t} \ket{q} \nonumber\\
+&= e^{i\Hamiltonian t} Q_s \ket{q} \nonumber\\
+&= q e^{i\Hamiltonian t} \ket{q} \nonumber\\
+&= q \ket{q,t}.
+\end{align}
+From here on out, we will relabel the operators as $Q_\Hamiltonian(t)\rightarrow Q(t)$ and $Q_s\rightarrow Q$ and the propagator as
+\begin{align}
+\PropK \rightarrow \Prop(q',t';q,t) &= \braket{q',t'|q,t} \nonumber\\
+&= \braket{q'|e^{-i\Hamiltonian(t'-t)}|q} \nonumber\\
+&= \int_q^{q'} D[\tilde{q}]e^{i\Action},
+\end{align}
+where $\tilde{q}$ is used simply because $q$ is already used in our initial state. There's nothing special about it. In Abers and Lee (Page 60 from https://www.sciencedirect.com/journal/physics-reports/vol/9/issue/1), $\Prop$ is referred to as the ``transformation matrix element.'' Don't forget that $\Action$ is an integral from $t$ to $t'$. Now let us consider the matrix element of the coordinate operator $Q$ evaluated at time $t_0$ between $\bra{q',t'}$ and $\ket{q,t}$, where $t<t_0<t'$. We have
+\begin{align}
+\braket{q',t'|Q(t_0)|q,t} &= \braket{q'|e^{-i\Hamiltonian t'}e^{i\Hamiltonian t_0} Q e^{-i\Hamiltonian t_0}e^{i\Hamiltonian t}|q} \nonumber\\
+&= \braket{q'|e^{-i\Hamiltonian (t'-t_0)}Q e^{-i\Hamiltonian (t_0-t)}|q}.
+\end{align}
+The time interval $[t,t']$ can be divided into $n+1$ segments $t_i - t_{i-1}$, where $i=1,...,n+1$, of fixed duration
+\begin{align}
+\Delta t = \frac{t'-t}{n+1}
+\end{align}
+so that
+\begin{align}
+t<t_1<...<t_n<t'.
+\end{align}
+Let $t_0$ be one of the $t_i$, which we will call $t_{i_0}$. The matrix element may then the form
+\begin{align}
+\braket{q',t'|Q(t_0)|q,t} &= \braket{q'|e^{-i\Hamiltonian (t' - t_n)}...e^{-i\Hamiltonian (t_{i_0 +1} - t_{i_0})} Q e^{-i\Hamiltonian (t_{i_0} - t_{i_0 - 1})}...e^{-i\Hamiltonian (t_1 - t)}|q}.
+\label{eqn:QPropDiscrete}
+\end{align}
+This division of the time interval into smaller pieces is called ``time-slicing''. Since
+\begin{align}
+I = \int dq\ket{q}\bra{q},
+\end{align}
+where $I$ is the identity operator, we may insert the expression on the right-hand-side into Eq.~\ref{eqn:QPropDiscrete} for each time step. In doing so, we obtain
+\begin{align}
+\braket{q',t'|Q(t_0)|q,t} = \int dq_1 ...dq_n \braket{q'|e^{-i\Hamiltonian(t' - t_n)}|q_n}...\braket{q_{i_0+1}|e^{-i\Hamiltonian(t_{i_0 + 1} - t_{i_0})} Q|q_{i_0}} ...\braket{q_1|e^{-i\Hamiltonian(t_1 - t)}|q}.
+\end{align}
+The action of $Q$ on $\ket{q_{t_0}}$ yields $Q\ket{q_{t_0}} = q_0\ket{q_{t_0}}$. Recall also that $\ket{q,t}=e^{i\Hamiltonian t}\ket{q}$. Therefore,
+\begin{align}
+\braket{q',t'|Q(t_0)|q,t} = \int dq_1...dq_n\,q_0\braket{q',t'|q_n,t_n}...\braket{q_1,t_1|q,t}.
+\end{align}
+If $q_0$ (which is just a number) was not present, this would be exactly what we worked with in the last lecture. Following the same steps as then, we'll obtain a similar result in
+\begin{align}
+\braket{q',t'|Q(t_0)|q,t} = \int [dq]q_0e^{i\Action}.
+\end{align}
+
+Consider now the expression
+\begin{align}
+\braket{q',t'|Q(t_1)Q(t_2)|q,t}.
+\end{align}
+We have two options: $t_1>t_2$ or $t_1<t_2$. Let us first consider the former. A similar calculation to what was just done yields
+\begin{align}
+\braket{q',t'|Q(t_1)Q(t_2)|q,t} = \int dq_1 ...dq_n \braket{q'|e^{-i\Hamiltonian(t' - t_n)}|q_n}...\braket{q_{i_1+1}|e^{-i\Hamiltonian(t_{i_1 + 1} - t_{i_1})} Q(t_1)|q_{i_1}} \nonumber\\
+\times...\braket{q_{i_2+1}|e^{-i\Hamiltonian(t_{i_2 + 1} - t_{i_2})} Q(t_2)|q_{i_2}}...\braket{q_1|e^{-i\Hamiltonian(t_1 - t)}|q},
+\end{align}
+wherein $t_1=t_{i_1}$ and $t_2=t_{i_2}$ each correspond to one of the $t_i$, just as $t_0$ did before. From here, it can be shown that
+\begin{align}
+\braket{q',t'|Q(t_1)Q(t_2)|q,t} &= \int dq_1...dq_n\,q_1q_2\braket{q',t'|q_n,t_n}...\braket{q_1,t_1|q,t} \nonumber\\
+&= \int [dq]q_1q_2e^{i\Action}.
+\end{align}
+Remember that this is in the case of $t<t_2<t_1<t'$. So what do we get if $t_1<t_2$? We would not be able to perform the time-slicing as we did before; we cannot make the transition from operators to path integrals. Notice, however, that since $q_1$ and $q_2$ are just numbers, we {\it would} get
+\begin{align}
+\braket{q',t'|Q(t_2)Q(t_1)|q,t} = \int [dq]q_2q_1e^{i\Action} = \int [dq]q_1q_2e^{i\Action}
+\end{align}
+for $t_2>t_1$. The fields that appear in the path integral expression are classical fields and the ordering doesn't matter. Thus, the order in which we write the operators for the propagator should not matter either. To this end, we may write
+\begin{align}
+\int [dq]q_1q_2e^{i\Action} = \braket{q',t'|\TimeOrder[Q(t_1)Q(t_2)]|q,t},
+\end{align}
+where $\TimeOrder$ is the time-ordered product
+\begin{align}
+\TimeOrder[Q(t_1)Q(t_2)] = Q(t_1)Q(t_2)\HSStep(t_1-t_2) + Q(t_2)Q(t_1)\HSStep(t_2-t_1),
+\end{align}
+in which
+\begin{align}
+\HSStep(x) = 
+	\begin{cases}
+		0 & \text{for } x<0, \\
+		1 & \text{for } x>0.
+	\end{cases}
+\end{align}
+is the Heaviside step function. What do we do if $x=0$? Since $Q$ commutes with itself, the ordering shouldn't matter. In the case that we have operators that do not commute, then perhaps $\HSStep(0) = 0.5$? Generalization of this result to $N$ operators should be clear:
+\begin{align}
+\int [dq]q_1...q_N e^{i\Action} = \braket{q',t'|\TimeOrder[Q(t_1)...Q(t_N)]|q,t}.
+\end{align}
+The time-ordered product of course will not have the form above, but one generalized to $N$ operators. When we go to QFT, the operators $Q$ will be replaced by fields
+\begin{align}
+\braket{\text{out}|\TimeOrder[\ScalarField(x^{\mu_1})...\ScalarField(x^{\mu_N})]|\text{in}} = \int [d\ScalarField]\ScalarField(x^{\mu_1})...\ScalarField(x^{\mu_N})e^{i\Action}.
+\end{align}
+
 \end{document}
