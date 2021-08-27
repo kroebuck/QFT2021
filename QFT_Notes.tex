@@ -74,7 +74,7 @@ With this in mind, the vacuum persistence amplitude takes the form
 Usually there will be some constants in the integrand as well, called the ``measure.'' The measure will act as a way of normalizing the integral. In the discrete case, this can be worked out (not too hard?), but to get to the continuous case, we need to take the limit as $\Delta \rightarrow 0$. The exponential oscillates all over the place as we vary $\ScalarField$. In the limit that $\hbar\rightarrow 0$, the oscillations will average out to zero, except where the action is minimized with respect to small changes in $\ScalarField$, i.e. the classical limit.
 
 \subsection{Time evolution operator and propagator}
-If we know that quantum state at $t_0$, then the time evolution operator $\TimeEvol(t, t_0)$ gives us the state vector at a later time $t$ according to
+If we know the quantum state at $t_0$, then the time evolution operator $\TimeEvol(t, t_0)$ gives us the state vector at a later time $t$ according to
 \begin{align}
 \ket{\Psi(t)} = \TimeEvol(t,t_0)\ket{\Psi(t_0)}.
 \end{align}
@@ -198,7 +198,7 @@ Let us first set $\hbar=1$ and denote by $q$ a generalized coordinate. Furthermo
 \begin{align}
 \TimeEvol(t,t_0) = e^{-i\Hamiltonian(t-t_0)}.
 \end{align}
-Let $Q_S$ be the time-independent position operator in the Schr\"odinger representation that corresponds to the observable $q$. Let $q$ be the orthonormal eigenvalues of $Q_s$:
+Let $Q_S$ be the time-independent position operator in the Schr\"odinger representation that corresponds to the observable $q$. Let $q$ be the orthonormal eigenvalue of $Q_s$:
 \begin{align}
 Q_s\ket{q} &= q\ket{q}, \\
 \braket{q'|q} &= \delta(q-q').
